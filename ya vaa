@@ -1,0 +1,841 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "stdlib.h"
+
+using namespace std;
+
+struct producto
+{
+	int idprod;
+	char descripcion[30];
+	int costounit;
+	int preciounit;
+	char unidad[5];
+	int idtipo;
+	char estado;
+};
+struct almacen
+{
+	int idalmacen;
+	char descripcion[30];
+	char estado;
+};
+struct un
+{
+	int idun;
+	char descripcion[30];
+};
+struct usuarios
+{
+	int idusuario;
+	char nombre[30];
+	char clave[30];
+};
+struct tipoprod
+{
+	int idtipo;
+	char descripcion[30];
+};
+struct stock
+{
+	int idprod;
+	int idalmacen;
+	int ventasacum;
+	int año;
+};
+
+//PROTOTIPOS
+int validarentero();
+float validarfloat();
+void menugerente();
+void menuencargadoventa();
+void menuencargadosistema();
+void menuprod();
+void menualmacen();
+void menuunidadnegocio();
+void menutipodeprod();
+void menuusuarios();
+void menuclaves();
+void añadirproducto();
+bool validarID(int id);
+void adicionarproducto();
+void modificarproducto();
+void modificarproducto();
+void buscarproducto();
+void eliminarproducto();
+void listarproducto();
+
+
+void main()
+{	int opcion;
+	char contraseña[10];
+	do{
+		
+		system("cls");
+		cout << "\tMENU PRINCIPAL\n";
+		cout << "1.Gerente\n";
+		cout << "2.Encargado de ventas\n";
+		cout << "3.Encargado de sistema\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			cout<<"Ingrese contraseña: ";
+			gets(contraseña);
+			if(strcmp(contraseña,"10")==0)
+			{
+				system("cls");
+				menugerente();
+			}
+			else
+				cout<<"Contraseña incorrecta";
+			getch();
+			break;
+
+		case 2: 
+			cout<<"Ingrese contraseña: ";
+			gets(contraseña);
+			if(strcmp(contraseña,"20")==0)
+			{
+				system("cls");
+				menuencargadoventa();
+			}
+			else
+				cout<<"Contraseña incorrecta";
+			getch();
+			break;
+		
+		case 3:
+			cout<<"Ingrese contraseña: ";
+			gets(contraseña);
+			if(strcmp(contraseña,"30")==0)
+			{
+				system("cls");
+				menuencargadosistema();
+			}
+			else
+				cout<<"Contraseña incorrecta";
+			getch();
+			break;
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "OPCION INVALIDA";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+
+
+
+//sub menus
+void menugerente()
+{
+	int opcion;
+	do{
+		cout << "\tMENU GERENTE\n";
+		cout << "1.Consultar proyeccion de ventas\n";
+		cout << "2.Listar proyeccion de ventas\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menuencargadoventa()
+{
+	int opcion;
+	do{
+		cout << "\tMENU ENCARGADO DE VENTAS\n";
+		cout << "1.Registrar las ventas acumuladas\n";
+		cout << "2.Buscar producto\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menuencargadosistema()
+{
+	int opcion;
+	do{
+		cout << "\tMENU ENCARGADO DE SISTEMA\n";
+		cout << "1.Productos\n";
+		cout << "2.Almacen\n";
+		cout << "3.Unidades de Negocio\n";
+		cout << "4.Tipo de producto\n";
+		cout << "5.Administracion de claves\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1: menuprod();
+				break;
+
+		case 2: menualmacen();
+			
+				break;
+		case 3:menuunidadnegocio();
+			  
+				break;
+	
+		case 4:menutipodeprod();
+			
+			break;
+
+		case 5:menuclaves();
+			
+			break;
+
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+
+//sub menu sistema
+void menuprod()
+{int opcion;
+	do{
+		system("cls");
+		cout << "\tProducto\n";
+		cout << "1.Adicionar\n";
+		cout << "2.Modificar\n";
+		cout << "3.Buscar\n";
+		cout << "4.Eliminar\n";
+		cout << "5.Listar\n";
+		cout << "\nEscoja una opcion: \n";
+		cin>>opcion;
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			adicionarproducto();
+			getch();
+			break;
+		case 2: 
+			modificarproducto();
+			getch();
+			break;
+		case 3:
+			buscarproducto();
+			getch();
+			break;
+		case 4: 
+			eliminarproducto();
+			getch();
+			break;
+		case 5:
+			listarproducto();
+			getch();
+			break;
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menualmacen()
+{int opcion;
+	do{
+		cout << "\tMENU ALMACEN\n";
+		cout << "1.Adicionar\n";
+		cout << "2.Modificar\n";
+		cout << "3.Buscar\n";
+		cout << "4.Eliminar\n";
+		cout << "5.Mostrar\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+		case 3:
+			  
+				break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menuunidadnegocio()
+{int opcion;
+	do{
+		cout << "\tMENU UNIDADES DE NEGOCIO\n";
+		cout << "1.Adicionar\n";
+		cout << "2.Modificar\n";
+		cout << "3.Buscar\n";
+		cout << "4.Eliminar\n";
+		cout << "5.Mostrar\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+		case 3:
+			  
+				break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menutipodeprod()
+{int opcion;
+	do{
+		cout << "\tMENU TIPO DE PRODUCTO\n";
+		cout << "1.Adicionar\n";
+		cout << "2.Modificar\n";
+		cout << "3.Buscar\n";
+		cout << "4.Eliminar\n";
+		cout << "5.Mostrar\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+		case 3:
+			  
+				break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menuusuarios()
+{int opcion;
+	do{
+		cout << "\tMENU USUARIOS\n";
+		cout << "1.Gerente\n";
+		cout << "2.Encargado de ventas\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+void menuclaves()
+{int opcion;
+	do{
+		cout << "\tMENU ADMINISTRACION DE CLAVES\n";
+		cout << "1.Modificar\n";
+		cout << "2.Mostrar\n";
+		cout << "0.SALIR\n";
+		cout << "\nEscoja una opcion: \n";
+		opcion=validarentero();
+		system("cls");
+		switch (opcion)
+		{
+		case 1:
+			
+			break;
+		case 2: 
+			
+			break;
+
+		case 0: cout << "SALIR";
+			break;
+		default: cout << "ERROR";
+			getch();
+			break;
+		}
+		system("cls");
+	} while (opcion!=0);
+}
+
+//productos
+bool validarID(int id){
+	FILE *ptr;
+	ptr=fopen("productos.dat","rb");
+	bool w=true;
+	producto reg;
+	if(ptr!=NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr)){
+			if(reg.idprod==id)
+				w=false;
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+		return w;
+	}
+}
+void adicionarproducto(){
+	FILE *ptr;
+	producto reg;
+	ptr=fopen("productos.dat","ab");
+	if(ptr!=NULL){
+		cout<<"id producto: ";
+		reg.idprod=validarentero();
+		while(!validarID(reg.idprod)){
+			cout<<"ese id producto ya existe!"<<endl;
+			cout<<"ingrese otro: ";
+			reg.idprod=validarentero();
+		}
+		fflush(stdin);
+		cout<<"descripcion: ";
+		gets(reg.descripcion);
+		cout<<"costo: ";
+		reg.costounit=validarfloat();
+		cout<<"precio: ";
+		reg.preciounit=validarfloat();
+		fflush(stdin);
+		cout<<"unidad: ";
+		gets(reg.unidad);
+		cout<<"ID tipo producto: ";
+		cin>>reg.idtipo;
+		reg.estado='S';
+		fwrite(&reg,sizeof(reg),1,ptr);
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void modificarproducto(){
+	FILE *ptr;
+	producto reg;
+	int id;
+	ptr=fopen("productos.dat","r+b");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idprod){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idprod && reg.estado=='S'){
+			cout<<"descripcion: ";
+			fflush(stdin);
+			gets(reg.descripcion);
+			cout<<"costo: ";
+			cin>>reg.costounit;
+			cout<<"precio: ";
+			cin>>reg.preciounit;
+			cout<<"unidad: ";
+			fflush(stdin);
+			gets(reg.unidad);
+			cout<<"ID tipo producto: ";
+			cin>>reg.idtipo;
+			fseek(ptr,-1*sizeof(reg),SEEK_CUR);
+			fwrite(&reg,sizeof(reg),1,ptr);
+			fclose(ptr);
+		}
+		else
+			cout<<"el producto no existe";
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void buscarproducto(){
+	FILE *ptr;
+	int id;
+	producto reg;
+	ptr=fopen("productos.dat","rb");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idprod){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idprod && reg.estado=='S'){
+			cout<<"descripcion: "<<reg.descripcion<<endl;
+			cout<<"costo: "<<reg.costounit<<endl;
+			cout<<"precio: "<<reg.preciounit<<endl;
+			cout<<"unidad: "<<reg.unidad<<endl;
+			cout<<"ID tipo producto: "<<reg.idtipo;
+		}
+		else
+			cout<<"el producto no existe";
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void eliminarproducto(){
+	FILE *ptr;
+	producto reg;
+	char c;
+	int id;
+	ptr=fopen("productos.dat","r+b");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idprod){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idprod && reg.estado=='S'){
+			cout<<"descripcion: "<<reg.descripcion<<endl;
+			cout<<"costo: "<<reg.costounit<<endl;
+			cout<<"precio: "<<reg.preciounit<<endl;
+			cout<<"unidad"<<reg.unidad<<endl;
+			cout<<"ID tipo producto: "<<reg.idtipo<<endl;
+			cout<<"desea eliminar?(S/N): ";
+			cin>>c;
+			if(c=='S'){
+				reg.estado='N';
+				fseek(ptr,-1*sizeof(reg),SEEK_CUR);
+				fwrite(&reg,sizeof(reg),1,ptr);
+				cout<<"el registro se ha eliminado";
+			}
+			else{
+				cout<<"el registro no se ha eliminado";
+			}
+			
+		}
+		else
+			cout<<"el producto no existe";
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void listarproducto(){
+	FILE *ptr;
+	ptr=fopen("productos.dat","rb");
+	producto reg;
+	if(ptr!=NULL){
+		cout<<setw(20)<<"ID producto"<<setw(20)<<"descripcion"<<setw(20)<<"costo"<<setw(20)<<"precio"<<setw(20)<<"unidad"<<setw(20)<<"ID tipo producto"<<endl;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr)){
+			if(reg.estado=='S'){
+				cout<<setw(20)<<reg.idprod<<setw(20)<<reg.descripcion<<setw(20)<<reg.costounit<<setw(20)<<reg.preciounit<<setw(20)<<reg.unidad<<setw(20)<<reg.idtipo<<endl;
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}
+	else
+		cout<<"el archivo no existe";
+}
+
+//almacen
+/*bool validarID(int id){
+	FILE *ptr;
+	ptr=fopen("almacen.dat","rb");
+	bool w=true;
+	almacen reg;
+	if(ptr!=NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr)){
+			if(reg.idalmacen==id)
+				w=false;
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+		return w;
+	}
+}
+void adicionaralmacen(){
+	FILE *ptr;
+	almacen reg;
+	ptr=fopen("almacen.dat","ab");
+	if(ptr!=NULL){
+		cout<<"id almacen: ";
+		cin>>reg.idalmacen;
+		while(!validarID(reg.idalmacen)){
+			cout<<"ese id almacen ya existe!"<<endl;
+			cout<<"ingrese otro: ";
+			cin>>reg.idalmacen;
+		}
+		fflush(stdin);
+		cout<<"descripcion: ";
+		gets(reg.descripcion);
+		reg.estado='S';
+		fwrite(&reg,sizeof(reg),1,ptr);
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void modificaralmacen(){
+	FILE *ptr;
+	almacen reg;
+	int id;
+	ptr=fopen("almacen.dat","r+b");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idalmacen){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idalmacen && reg.estado=='S'){
+			cout<<"descripcion: ";
+			fflush(stdin);
+			gets(reg.descripcion);
+			fseek(ptr,-1*sizeof(reg),SEEK_CUR);
+			fwrite(&reg,sizeof(reg),1,ptr);
+			fclose(ptr);
+		}
+		else
+			cout<<"el almacen no existe";
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void buscaralmacen(){
+	FILE *ptr;
+	int id;
+	almacen reg;
+	ptr=fopen("almacen.dat","rb");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idalmacen){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idalmacen && reg.estado=='S'){
+			cout<<"descripcion: "<<reg.descripcion<<endl;
+		}
+		else
+			cout<<"el almacen no existe";
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void eliminaralmacen(){
+	FILE *ptr;
+	almacen reg;
+	char c;
+	int id;
+	ptr=fopen("almacen.dat","r+b");
+	if(ptr!=NULL){
+		cout<<"ingrese id: ";
+		cin>>id;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr) && id!=reg.idalmacen){
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		if(id==reg.idalmacen && reg.estado=='S'){
+			cout<<"descripcion: "<<reg.descripcion<<endl;
+			cout<<"desea eliminar?(S/N): ";
+			cin>>c;
+			if(c=='S'){
+				reg.estado='N';
+				fseek(ptr,-1*sizeof(reg),SEEK_CUR);
+				fwrite(&reg,sizeof(reg),1,ptr);
+				cout<<"el registro se ha eliminado";
+			}
+			else{
+				cout<<"el registro no se ha eliminado";
+			}
+			
+		}
+		else
+			cout<<"el almacen no existe";
+		fclose(ptr);
+	}
+	else{
+		cout<<"el archivo no existe";
+	}
+}
+void listaralmacen(){
+	FILE *ptr;
+	ptr=fopen("almacen.dat","rb");
+	almacen reg;
+	if(ptr!=NULL){
+		cout<<setw(20)<<"ID almacen"<<setw(20)<<"descripcion"<<endl;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(!feof(ptr)){
+			if(reg.estado=='S'){
+				cout<<setw(20)<<reg.idalmacen<<endl;
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}
+	else
+		cout<<"el archivo no existe";
+}
+*/
+//validaciones
+int validarentero()
+{
+	int r, i; bool k;
+	char num[12];
+	do{
+		do{
+			cout << "\ningrese numero: ";
+			fflush(stdin);
+			gets(num);
+		} while (strlen(num) == 0);
+		i = 0; k = true;
+		if (num[0] == '-')
+		{
+			i++;
+			if (strlen(num) == 1)
+				k = false;
+		}
+		while (i<strlen(num))
+		{
+			if ((num[i] != '0') && (num[i] != '1') && (num[i] != '2') && (num[i] != '3') && (num[i] != '4') && (num[i] != '5') && (num[i] != '6') && (num[i] != '7') && (num[i] != '8') && (num[i] != '9'))
+			{
+				k = false; break;
+			}
+			i++;
+		}
+		if (k == false){ cout << "ERROR : DATO NO NUMERICO"; }
+	} while (k == false);
+	r = atoi(num);
+
+	return(r);
+}
+float validarfloat()
+{
+	float r;int i; bool k;
+	char num[12];
+	do{
+		do{
+			cout << "\ningrese numero: ";
+			gets_s(num);
+		} while (strlen(num) == 0);
+		i = 0; k = true;
+		if(num[0]=='.')
+		     {k=false;}
+		if (num[0] == '-')
+		{  
+			i++;
+			if (strlen(num) == 1)
+				k = false;
+		}
+		while (i<strlen(num))
+		{
+			if ((num[i]!='.')&&(num[i] != '0') && (num[i] != '1') && (num[i] != '2') && (num[i] != '3') && (num[i] != '4') && (num[i] != '5') && (num[i] != '6') && (num[i] != '7') && (num[i] != '8') && (num[i] != '9'))
+			{
+				k = false; break;
+			}
+			i++;
+		}
+		if (k == false){ cout << "ERROR : DATO NO NUMERICO"; }
+	} while (k == false);
+	r = atof(num);
+
+	return(r);
+}
